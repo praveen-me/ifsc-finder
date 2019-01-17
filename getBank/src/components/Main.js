@@ -41,22 +41,27 @@ class Main extends Component {
     } 
   }
 
+  convertReadable = (str) => {
+    return str.split(' ').map(str => `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`).join(' ');
+  }
+  
+
   render() {
     const {prevSearches, bankDetails, isLoading, IFSC} = this.state;
     return (
       <main>
         <div className="wrapper">
-          <div className="prev-searches-container">
-            {
-              prevSearches && prevSearches.map(search => (
-                <div className="prev-search">{search}</div>
-              ))
-            }
-          </div>
           <form onSubmit={this.handleSubmit} className={`form ${IFSC.length === 11 ? 'success' : '' || IFSC.length > 11 ? 'danger' : ''}`}>
             <input type="text" onChange={this.handleChange} className="input-field" placeholder="Enter Bank's IFSC Code" value={IFSC}/>
             <button type="submit" className="btn">Get Details</button>
           </form>
+          <div className="prev-searches-container">
+            {
+              prevSearches && prevSearches.map(search => (
+                <button className="prev-search">{search}</button>
+              ))
+            }
+          </div>
           {
             bankDetails ? (
               <div className="bank-details">
@@ -65,30 +70,34 @@ class Main extends Component {
                   <div className="bank-code">({bankDetails.BANKCODE})</div>
                 </div>
                 <div className="bank-info">
-                  <span className="info-head">IFSC </span> 
+                  <span className="info-head">IFSC - </span> 
                   <div className="info-value"> {bankDetails.IFSC}</div>
                 </div>
                 <div className="bank-info">
-                  <span className="info-head">Branch </span> 
+                  <span className="info-head">Branch - </span> 
                   <div className="info-value"> {bankDetails.BRANCH}</div>
                 </div>
                 <div className="bank-info">
-                  <span className="info-head">Adderes </span> 
-                  <div className="info-value"> {bankDetails.ADDRESS}</div>
+                  <span className="info-head">Address - </span> 
+                  <div className="info-value"> {this.convertReadable(bankDetails.ADDRESS)}</div>
                 </div>
                 <div className="bank-detail-box">
                   <div className="bank-info">
-                    <span className="info-head">Contact </span> 
+                    <span className="info-head">Contact - </span> 
                     <div className="info-value"> {bankDetails.CONTACT}</div>
                   </div>
                   <div className="bank-info">
-                    <span className="info-head">City </span> 
-                    <div className="info-value"> {bankDetails.CITY}</div>
+                    <span className="info-head">City - </span> 
+                    <div className="info-value"> {this.convertReadable(bankDetails.CITY)}</div>
                   </div>
                 </div>
-                <div className="bank-detail-box">
-                  <div className="bank-info">{bankDetails.DISTRICT}</div>
-                  <div className="bank-info">{bankDetails.STATE}</div>
+                <div className="bank-info">
+                  <span className="info-head">District - </span> 
+                  <div className="info-value"> {this.convertReadable(bankDetails.DISTRICT)}</div>
+                </div>
+                <div className="bank-info">
+                  <span className="info-head">State - </span> 
+                  <div className="info-value"> {this.convertReadable(bankDetails.STATE)}</div>
                 </div>
               </div>
             ) : ''

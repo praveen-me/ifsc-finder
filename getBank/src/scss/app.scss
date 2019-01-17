@@ -110,7 +110,7 @@ header {
   font-weight: 300;
   font-size: 1.8rem;
   display: inline-block;
-  margin: 0 1rem;
+  margin-right: 1rem;
 }
 
 .bank-code {
@@ -140,5 +140,18 @@ header {
 .bank-detail-box {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin: 0.5rem 0;
+}
+
+.prev-searches-container {
+  width: 450px;
+  margin: 1rem auto;
+}
+
+.prev-search {
+  background: #303735;
+  color: #fff;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px 1px #989595;
 }
