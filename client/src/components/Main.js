@@ -49,23 +49,13 @@ class Main extends Component {
   }
   
   setBankData = (ifsc) => {
-    // fetch(`https://ifsc.razorpay.com/${ifsc}`)
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     const {prevSearches} = this.state;
-    //     return this.setState({
-    //       prevSearches: prevSearches.includes(ifsc) ? prevSearches : [...prevSearches, ifsc],
-    //       bankDetails: data,
-    //       isLoading: false,
-    //       IFSC: ''
-    //     })
-    //   })
     this.props.dispatch(bankAction.getBankDetails(ifsc, (isFounded) => {
       if(isFounded) {
         this.setState({
           isLoading: false,
           IFSC: ''
         })
+        this.props.dispatch(bankAction.setBankDetailsIntoDB())
       }
     }))
   }
@@ -88,8 +78,8 @@ class Main extends Component {
                 <div className="prev-head center">Previous Searches</div>
                 <div className="prev-searches-container">
                 {
-                  prevSearches.map(search => (
-                    <button className="prev-search" onClick={this.hanldePrevSearch}>{search}</button>
+                  prevSearches.map((search, i) => (
+                    <button className="prev-search" onClick={this.hanldePrevSearch} key={i}>{search}</button>
                   ))
                 }
                 </div>

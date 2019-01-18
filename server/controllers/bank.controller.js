@@ -1,13 +1,14 @@
 const Bank = require('./../models/Bank');
 
 module.exports = {
-  setBank: (req, res) => {
-    const { IFSC, BANKNAME } = req.body;
+  setBank: (req, res) => {  
+    const { IFSC, BANK, CITY } = req.body;
     Bank.findOne({ IFSC }, (err, bankData) => {
       if(!bankData) {
         const newBank = new Bank({
           IFSC,
-          BANKNAME
+          BANK,
+          CITY
         })
         return newBank.save()
       }

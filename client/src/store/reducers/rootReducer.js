@@ -5,14 +5,13 @@ const initState = {
 
 function rootReducer (state = initState, action) {
   switch(action.type) {
-    case 'SET_BANK' : {
+    case 'GET_BANK' : {
       const {prevSearches, bankDetails} = action.bankDetails;
       return {
         bankDetails,
         prevSearches
       }
     }
-
     default: return state;
   }
 }

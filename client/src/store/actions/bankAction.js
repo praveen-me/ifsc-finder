@@ -2,19 +2,36 @@ import store from './../store';
 
 const bankAction = {
   getBankDetails : (IFSC, cb) => {
-    return (dispatch, getState) => {
+    return (dispatch) => {
       fetch(`https://ifsc.razorpay.com/${IFSC}`)
       .then(res => res.json())
       .then(data => {
         const {prevSearches} = store.getState()
-        cb(true)       
-        return dispatch({
-          type: 'SET_BANK',
+        dispatch({
+          type: 'GET_BANK',
           bankDetails : {
             prevSearches: prevSearches.includes(IFSC) ? prevSearches : [...prevSearches, IFSC],
             bankDetails: data,
           }
         })
+        return cb(true)       
+      })
+    }
+  },
+  setBankDetailsIntoDB : () => {
+    return (dispatch) => {
+      const {IFSC, BANK, CITY} = store.getState().bankDetails;
+      const bankDetails = {
+        IFSC,
+        BANK,
+        CITY
+      }
+      fetch(`http://localhost:8001/banks`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bankDetails)
       })
     }
   }
