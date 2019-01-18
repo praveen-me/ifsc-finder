@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 
 function BankDetail(props) {
-  const convertReadable = (str) => str.split(' ').map(str => `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`).join(' ');
+  const convertReadable = (str) => {
+    return str.split(' ').filter(str => str.length > 0).map(str => `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`).join(' ')
+  };
   
   const {bankDetails} =  props;
   return (
@@ -43,7 +45,7 @@ function BankDetail(props) {
           <div className="info-value"> { convertReadable(bankDetails.STATE)}</div>
         </div>
       </div>
-    ) : ''
+    ) : <div></div>
   );
 }
 

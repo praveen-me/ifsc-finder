@@ -5,9 +5,7 @@ import {connect} from 'react-redux';
 import bankAction from '../store/actions/bankAction';
 import BankDetail from './BankDetail';
 
-const socket = io('http://localhost:8001')
-
-let online = true;
+const socket = io('http://localhost:8001');
 
 class Main extends Component {
   constructor(props) {
@@ -64,8 +62,8 @@ class Main extends Component {
         this.setState({
           isLoading: false,
           IFSC: ''
-        })
-        this.props.dispatch(bankAction.setBankDetailsIntoDB())
+        });
+        this.props.dispatch(bankAction.setBankDetailsIntoDB());
       }
     }))
   }
@@ -95,7 +93,7 @@ class Main extends Component {
 
   render() {
     const { isLoading, IFSC, bankQueryResult, online} = this.state;
-    const {prevSearches, bankDetails} = this.props;
+    const {prevSearches} = this.props;
 
     return (
       online ? (
@@ -111,7 +109,8 @@ class Main extends Component {
                 <div className="bank-query">
                   {
                     bankQueryResult && bankQueryResult.map(bank => (
-                      <button 
+                      <button
+                      key={bank._id} 
                       id={bank.IFSC} 
                       onClick={this.handleSearch} 
                       className="drop-list btn">{bank.BANK}, {bank.CITY}</button>
