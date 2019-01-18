@@ -20,6 +20,8 @@ class Main extends Component {
   handleChange = e => {
     this.setState({
       IFSC: e.target.value.trim()
+    }, () => {
+      socket.emit('bankQuery', this.state.IFSC)
     });
   }
 

@@ -16,9 +16,6 @@ module.exports = {
         msg: 'Bank information already available'
       }
     })
-  },
-  getBankSuggestion: (req, res) => {
-    // const query= 
   }
 };
 
