@@ -12,17 +12,23 @@ class Main extends Component {
     this.state = {
       IFSC: '', 
       isLoading: false,
-      bankDetails: null,
-      prevSearches: [],
+      bankQueryResult : []
     }
   }
 
   handleChange = e => {
+    if(this.state.IFSC === '') {
+      this.setState({
+        bankQueryResult: []
+      })
+    }
+    
     this.setState({
       IFSC: e.target.value.trim()
     }, () => {
       socket.emit('bankQuery', this.state.IFSC)
     });
+
   }
 
   handleSubmit = e => {
@@ -42,12 +48,14 @@ class Main extends Component {
     return str.split(' ').map(str => `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`).join(' ');
   }
 
-  hanldePrevSearch = e => {
-    // console.log()
+  handleSearch = e => {
     this.setState({
       isLoading : true
     })
-    this.setBankData(e.target.innerHTML)
+    this.setBankData(e.target.id||e.target.innerHTML)
+    this.setState({
+      bankQueryResult: []
+    })
   }
   
   setBankData = (ifsc) => {
@@ -62,18 +70,41 @@ class Main extends Component {
     }))
   }
 
+  getBankQuery = ((e) => {
+    socket.on('queryResult', (banks) => {
+      this.setState({
+        bankQueryResult: banks
+      })
+    });
+  })()
 
   render() {
-    const { isLoading, IFSC} = this.state;
+    const { isLoading, IFSC, bankQueryResult} = this.state;
     const {prevSearches, bankDetails} = this.props;
-    
+
     return (
       <main>
         <div className="wrapper">
-          <form onSubmit={this.handleSubmit} className={`form ${IFSC.length === 11 ? 'success' : '' || IFSC.length > 11 ? 'danger' : ''}`}>
-            <input type="text" onChange={this.handleChange} className="input-field" placeholder="Enter Bank's IFSC Code" value={IFSC}/>
-            <button type="submit" className="btn">Get Details</button>
-          </form>
+          <div className="form-wrapper">
+            <form onSubmit={this.handleSubmit} className={`form ${IFSC.length === 11 ? 'success' : '' || IFSC.length > 11 ? 'danger' : ''}`}>
+              <input type="text" onChange={this.handleChange} className="input-field" placeholder="Enter Bank's IFSC Code" value={IFSC}/>
+              <button type="submit" className="btn">Get Details</button>
+            </form>
+            {
+              bankQueryResult.length > 0 && (
+                <div className="bank-query">
+                  {
+                    bankQueryResult && bankQueryResult.map(bank => (
+                      <button 
+                      id={bank.IFSC} 
+                      onClick={this.handleSearch} 
+                      className="drop-list btn">{bank.BANK}, {bank.CITY}</button>
+                    ))
+                  }
+                </div>
+              )
+            }
+          </div>
           {
             prevSearches.length ?  (
               <div className="prev-wrapper">
@@ -81,7 +112,7 @@ class Main extends Component {
                 <div className="prev-searches-container">
                 {
                   prevSearches.map((search, i) => (
-                    <button className="prev-search" onClick={this.hanldePrevSearch} key={i}>{search}</button>
+                    <button className="prev-search" onClick={this.handleSearch} key={i}>{search}</button>
                   ))
                 }
                 </div>

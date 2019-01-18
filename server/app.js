@@ -6,9 +6,10 @@ const app = express();
 const socket = require('socket.io');
 
 // Modules
+const bankController = require('./controllers/bank.controller');
 const Bank = require('./models/Bank');
 
-mongoose.connect('mongodb://localhost/IFSC', (err) => {
+mongoose.connect('mongodb://localhost/IFSC', { useNewUrlParser: true }, (err) => {
   console.log('connected to mongodb');
 });
 
@@ -29,15 +30,20 @@ const server = app.listen(8001, () => {
 const io = socket(server);
 
 io.on('connection', (socket) => {
-  console.log('socket is connected');
   let allBanks = []
   Bank.find({}, (err, banks) => {
     allBanks = banks;
+    console.log(allBanks)
   });
   
   socket.on('bankQuery', (bank) => {
     const query = new RegExp(bank, 'i');
-    const filteredBanks = allBanks.filter(bank => query.test(bank.BANK))
-    console.log(filteredBanks);
+    let filteredBanks;
+    if(bank === '') {
+     filteredBanks = []
+    } else {
+      filteredBanks = allBanks.filter(bank => query.test(bank.BANK))
+    }
+    socket.emit('queryResult', filteredBanks);
   })
 })
