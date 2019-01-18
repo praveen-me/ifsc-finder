@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client';
 import Loader from './Loader';
+import {connect} from 'react-redux';
+import bankAction from '../store/actions/bankAction';
+
+const socket = io('http://localhost:8001')
 
 class Main extends Component {
   constructor(props) {
@@ -35,8 +40,6 @@ class Main extends Component {
     return str.split(' ').map(str => `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`).join(' ');
   }
 
-
-
   hanldePrevSearch = e => {
     // console.log()
     this.setState({
@@ -46,22 +49,32 @@ class Main extends Component {
   }
   
   setBankData = (ifsc) => {
-    fetch(`https://ifsc.razorpay.com/${ifsc}`)
-      .then(res => res.json())
-      .then(data => {
-        const {prevSearches} = this.state;
-        return this.setState({
-          prevSearches: prevSearches.includes(ifsc) ? prevSearches : [...prevSearches, ifsc],
-          bankDetails: data,
+    // fetch(`https://ifsc.razorpay.com/${ifsc}`)
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     const {prevSearches} = this.state;
+    //     return this.setState({
+    //       prevSearches: prevSearches.includes(ifsc) ? prevSearches : [...prevSearches, ifsc],
+    //       bankDetails: data,
+    //       isLoading: false,
+    //       IFSC: ''
+    //     })
+    //   })
+    this.props.dispatch(bankAction.getBankDetails(ifsc, (isFounded) => {
+      if(isFounded) {
+        this.setState({
           isLoading: false,
           IFSC: ''
         })
-      })
+      }
+    }))
   }
 
 
   render() {
-    const {prevSearches, bankDetails, isLoading, IFSC} = this.state;
+    const { isLoading, IFSC} = this.state;
+    const {prevSearches, bankDetails} = this.props;
+    
     return (
       <main>
         <div className="wrapper">
@@ -136,4 +149,12 @@ class Main extends Component {
   }
 }
 
-export default Main;
+function mapStateToProps(state) {
+  const {bankDetails, prevSearches} = state;
+  return {
+    bankDetails,
+    prevSearches
+  }
+}
+
+export default connect(mapStateToProps)(Main);
