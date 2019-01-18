@@ -178,7 +178,8 @@ header {
   height: 100px;
   background: #e7e7e2;
   position: absolute;
-  width: 100%;
+  width: 90%;
+  left: 5%;
   box-shadow : 2px 3px 12px 0px rgba(0, 0, 0, 0.56)
 }
 
@@ -190,10 +191,8 @@ header {
   font-size: 1;
   background: transparent;
   border: none;
-  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
-
-
 //Scroll behaviour
 
 ::-webkit-scrollbar {

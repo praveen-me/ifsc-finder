@@ -33,7 +33,6 @@ io.on('connection', (socket) => {
   let allBanks = []
   Bank.find({}, (err, banks) => {
     allBanks = banks;
-    console.log(allBanks)
   });
   
   socket.on('bankQuery', (bank) => {
