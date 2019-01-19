@@ -1,5 +1,8 @@
 {
-  "name": "ifsc-checker-CLI",
+  "name": "ifsc-cli",
+  "bin": {
+    "ifsc-cli": "./cli.js"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +10,14 @@
     "start": "nodemon cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "cli",
+    "node",
+    "bank",
+    "ifsc",
+    "api",
+    "ifsc-code"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
