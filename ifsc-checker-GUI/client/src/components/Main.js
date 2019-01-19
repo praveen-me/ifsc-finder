@@ -108,7 +108,7 @@ class Main extends Component {
         <div className="wrapper">
           <div className="form-wrapper">
             <form onSubmit={this.handleSubmit} className={`form ${IFSC.length === 11 ? 'success' : '' || IFSC.length > 11 ? 'danger' : ''}`}>
-              <input type="text" onChange={this.handleChange} className="input-field" placeholder="Enter Bank's IFSC Code" value={IFSC}/>
+              <input type="text" onChange={this.handleChange} className="input-field" placeholder="Enter Bank's IFSC Code OR Bank Name" value={IFSC}/>
               <button type="submit" className="btn">Get Details</button>
             </form>
             {
