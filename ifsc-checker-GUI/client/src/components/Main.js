@@ -65,7 +65,7 @@ class Main extends Component {
           IFSC: '',
           errMsg: ''
         });
-        this.props.dispatch(bankAction.setBankDetailsIntoDB());
+        bankAction.setBankDetailsIntoDB()
       } else {
         this.setState({
           isLoading: false,

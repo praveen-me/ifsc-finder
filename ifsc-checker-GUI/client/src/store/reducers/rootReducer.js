@@ -1,16 +1,16 @@
 const initState = {
-  bankDetails : null,
-  prevSearches : []
-}
+  bankDetails: null,
+  prevSearches: [],
+};
 
-function rootReducer (state = initState, action) {
-  switch(action.type) {
-    case 'GET_BANK' : {
-      const {prevSearches, bankDetails} = action.bankDetails;
+function rootReducer(state = initState, action) {
+  switch (action.type) {
+    case 'GET_BANK': {
+      const { prevSearches, bankDetails } = action.bankDetails;
       return {
         bankDetails,
-        prevSearches
-      }
+        prevSearches,
+      };
     }
     default: return state;
   }
