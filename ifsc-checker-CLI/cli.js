@@ -6,12 +6,14 @@ const spinner = require('elegant-spinner');
 
 let isLoading = false;
 const frame = spinner();
+let interval;
 
 const line = readLine.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
+// convert totally capitalized string into readable
 const convertReadable = (str) => {
   return str ? str.split(' ')
   .filter(str => str.length > 0)
@@ -19,7 +21,7 @@ const convertReadable = (str) => {
   .join(' ') : 'Not available';
 }
 
-const blueText = (head, text)  => {
+const blueText = (head, text) => {
   return console.log(`${chalk.rgb(0, 188, 212)(`${chalk.magenta.bold(head)} ${chalk.white('-')} ${convertReadable(text)}`)}`);
 }
 
@@ -35,35 +37,41 @@ const displayBankDetail = (bank) => {
   blueText('Bank State', STATE);
 };
 
+
 // Ifsc KKBK0000261
 
 const errMsg = (msg) => console.log(`\n${chalk.red.bold(msg)}\n`);
 
-line.question(chalk.yellow('\nEnter IFSC Code => '), (ifsc) => {
-  // fetching data
-  https.get(`https://ifsc.razorpay.com/${ifsc}`, (data) => {
-    isLoading = true;
-    let interval;
-    // Set loading on isLoading
-    if(isLoading) {
-      interval =  setInterval(function(){
-        logUpdate(`
-          ${ `${chalk.rgb(141, 249, 255).bold(`Waiting for data ${frame()}`)}`}
-        `);
-      }, 50);
-    }
-    
-    data.on('data', (d) => {
-      const bankData = JSON.parse(String(d))
+const endMessage = () => console.log(`\n${chalk.rgb(141, 249, 255).bold('Thanks for using IFSC Checker.')}\n`);
 
-      // isLoading = false;
+line.question(chalk.yellow('\nEnter IFSC Code => '), (ifsc) => {
+  
+  // fetching data
+  isLoading = true;
+  
+  // Set loading on KKBK0000261isLoading
+  if (isLoading) {
+    interval =  setInterval(function(){
+      logUpdate(`
+      ${ `${chalk.rgb(141, 249, 255).bold(`Waiting for data ${frame()}`)}`}
+      `);
+    }, 50);
+  }
+  
+  https.get(`https://ifsc.razorpay.com/${ifsc}`, (data) => {
+    data.on('data', (d) => {
+      isLoading = false;
+      const bankData = JSON.parse(String(d))
+      
       // Clearing the interval of spinner
       if (!isLoading) {
         clearInterval(interval);
         if (typeof(bankData) === 'object') {
           displayBankDetail(bankData);
+          endMessage();
         } else {
           errMsg('IFSC CODE IS WORNG. Please Try Again.')
+          endMessage();
         }
       }
     })
