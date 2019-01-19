@@ -27,7 +27,7 @@ class Main extends Component {
     }
     
     this.setState({
-      IFSC: e.target.value.trim()
+      IFSC: e.target.value
     }, () => {
       socket.emit('bankQuery', this.state.IFSC)
     });

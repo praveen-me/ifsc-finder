@@ -1,17 +1,28 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const https = require('https');
 const cors = require('cors');
 const app = express();
 const socket = require('socket.io');
+const Bank = require('./models/Bank');
+
+
+mongoose.connect(`mongodb://${process.env.NAME}:${process.env.PASSWORD}@ds161144.mlab.com:61144/ifsc`,  { useNewUrlParser: true })
+
+mongoose.connection.once('open', () => {
+    console.log('conneted to database');
+});
 
 // Modules
 const bankController = require('./controllers/bank.controller');
-const Bank = require('./models/Bank');
 
-mongoose.connect('mongodb://localhost/IFSC', { useNewUrlParser: true }, (err) => {
-  console.log('connected to mongodb');
-});
+
+// mongoose.connect(`mongodb://localhost/IFSC`, { useNewUrlParser: true }, (err) => {
+  
+//   console.log('connected to mongodb');
+// });
+
 
 // Essential middleware
 app.use(bodyParser.json());
