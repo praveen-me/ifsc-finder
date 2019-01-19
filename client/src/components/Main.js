@@ -14,7 +14,8 @@ class Main extends Component {
       IFSC: '', 
       isLoading: false,
       bankQueryResult : [],
-      online: true
+      online: true,
+      errMsg: ''
     }
   }
 
@@ -61,9 +62,15 @@ class Main extends Component {
       if(isFounded) {
         this.setState({
           isLoading: false,
-          IFSC: ''
+          IFSC: '',
+          errMsg: ''
         });
         this.props.dispatch(bankAction.setBankDetailsIntoDB());
+      } else {
+        this.setState({
+          isLoading: false,
+          errMsg: "IFSC Code not found."
+        })
       }
     }))
   }
@@ -92,7 +99,7 @@ class Main extends Component {
   })()
 
   render() {
-    const { isLoading, IFSC, bankQueryResult, online} = this.state;
+    const { isLoading, IFSC, bankQueryResult, online, errMsg} = this.state;
     const {prevSearches} = this.props;
 
     return (
@@ -135,14 +142,12 @@ class Main extends Component {
             ) : '' 
           }
           {
-            isLoading ? <Loader /> : (
-              <BankDetail />
-            )
+            isLoading ? <Loader /> : errMsg ? <p className="errMsg">{errMsg}</p> : <BankDetail/>
           }
         </div>
         <div className="overlay"></div>
       </main>
-      ) : <p className="err">Please connect to internet</p>
+      ) : <p className="errMsg">Please connect to internet.</p>
     );
   }
 }

@@ -22,13 +22,20 @@ button {
   text-align: center;
 }
 
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
 // Header 
 header {
+  top: 0;
   font-size: 2rem;
   padding: 0.5rem 0;
   background: $color1;
   color: #fff;
   font-weight: 300;
+  width: 100%;
+  position: fixed;
 }
 
 // main 
@@ -44,14 +51,13 @@ header {
 }
 
 .wrapper {
-  padding: 50px 0;
+  padding: 75px 0;
   max-width: 500px;
   width: 100%;
   margin: 0 auto;
 }
 
-.form {
-  width: 450px; 
+.form { 
   margin: 0 auto;
   display: flex;
   .input-field {
@@ -96,7 +102,6 @@ header {
 
 // bank details
 .bank-details {
-  width: 450px;
   margin: 0 auto;
   border-radius: 5px;
   color: #2b2b2b;
@@ -148,7 +153,6 @@ header {
 }
 
 .prev-searches-container {
-  width: 450px;
   margin: 1rem auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -193,6 +197,14 @@ header {
   border: none;
   border-bottom: 1px solid #ccc;
 }
+
+.errMsg {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 1.5rem 0;
+  color: #ff5353;
+}
+
 //Scroll behaviour
 
 ::-webkit-scrollbar {
@@ -207,4 +219,24 @@ header {
 ::-webkit-scrollbar-thumb {
   border-radius: 0px;
     -webkit-box-shadow: inset 0 0 20px black;
+}
+
+
+// Responsive
+@media screen and (max-width: 420px) {
+  body {
+    padding : 1rem;
+  }
+  
+  header {
+    left: 0
+  }
+
+  .bank-detail-box {
+    grid-template-columns: 1fr;
+  }
+
+  .prev-searches-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

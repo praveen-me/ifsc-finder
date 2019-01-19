@@ -4,17 +4,24 @@ const bankAction = {
   getBankDetails : (IFSC, cb) => {
     return (dispatch) => {
       fetch(`https://ifsc.razorpay.com/${IFSC}`)
-      .then(res => res.json())
-      .then(data => {
-        const {prevSearches} = store.getState()
-        dispatch({
-          type: 'GET_BANK',
-          bankDetails : {
-            prevSearches: prevSearches.includes(IFSC) ? prevSearches : [...prevSearches, IFSC],
-            bankDetails: data,
-          }
-        })
-        return cb(true)       
+      .then(res => {
+        if(res.status === 200) {
+          res.json()
+            .then(data => {
+              const {prevSearches} = store.getState()
+              dispatch({
+                type: 'GET_BANK',
+                bankDetails : {
+                  prevSearches: prevSearches.includes(IFSC) ? prevSearches : [...prevSearches, IFSC],
+                  bankDetails: data,
+                }
+              })
+              return cb(true)
+            })       
+        } else {
+          return res.json()
+            .then(() => cb(false))
+        }
       })
     }
   },

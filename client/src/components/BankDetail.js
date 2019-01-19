@@ -2,9 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 function BankDetail(props) {
-  const convertReadable = (str) => {
-    return str.split(' ').filter(str => str.length > 0).map(str => `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`).join(' ')
-  };
+  const convertReadable = (str) => str ? str.split(' ').filter(str => str.length > 0).map(str => `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`).join(' ') : 'Not available'
   
   const {bankDetails} =  props;
   return (
@@ -29,7 +27,7 @@ function BankDetail(props) {
         <div className="bank-detail-box">
           <div className="bank-info">
             <span className="info-head">Contact - </span> 
-            <div className="info-value"> {bankDetails.CONTACT}</div>
+            <div className="info-value"> {bankDetails.CONTACT ? bankDetails.CONTACT : 'Not Available'}</div>
           </div>
           <div className="bank-info">
             <span className="info-head">City - </span> 
