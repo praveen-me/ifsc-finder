@@ -1,5 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+
 
 function BankDetail(props) {
   const convertReadable = (str) => str ? str.split(' ').filter(str => str.length > 0).map(str => `${str[0].toUpperCase()}${str.slice(1).toLowerCase()}`).join(' ') : 'Not available'
@@ -52,6 +54,10 @@ function mapStateToProps(state) {
   return {
     bankDetails
   }
+}
+
+BankDetail.propTypes = {
+  bankDetails: PropTypes.object
 }
 
 export default connect(mapStateToProps)(BankDetail);

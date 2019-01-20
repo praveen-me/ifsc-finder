@@ -4,6 +4,8 @@ import Loader from './Loader';
 import {connect} from 'react-redux';
 import bankAction from '../store/actions/bankAction';
 import BankDetail from './BankDetail';
+import PropTypes from 'prop-types';
+
 
 const socket = io('http://localhost:8001');
 
@@ -153,11 +155,14 @@ class Main extends Component {
 }
 
 function mapStateToProps(state) {
-  const {bankDetails, prevSearches} = state;
+  const {prevSearches} = state;
   return {
-    bankDetails,
     prevSearches
   }
+}
+
+Main.propTypes = {
+  prevSearches: PropTypes.array
 }
 
 export default connect(mapStateToProps)(Main);
