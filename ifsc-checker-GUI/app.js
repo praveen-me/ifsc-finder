@@ -23,7 +23,7 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, './server/views'));
 
 // Set image path
-app.use('/images', express.static(path.join(__dirname, './client/src/images')))
+app.use('/images', express.static(path.join(__dirname, './client/src/images')));
 
 
 // Essential middleware

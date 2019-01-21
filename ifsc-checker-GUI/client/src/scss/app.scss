@@ -30,27 +30,23 @@ button {
 header {
   top: 0;
   font-size: 2rem;
-  padding: 1.5rem 0;
-  background: $color1;
+  padding: 1rem 0;
+  background: #1FCA7E;
   color: #fff;
   font-weight: bold;
   width: 100%;
+  i {
+    font-weight: 300;
+  }
 }
 
-// main 
-.overlay {
-  position: absolute;
-  top: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100vh;
-  opacity: 0.08;
-  background-blend-mode: color-burn;
-  // background-image: url('/images/../images/bg.svg');
+.rzp-logo {
+  width: 150px;
+  vertical-align: middle;
 }
 
 .wrapper {
-  padding: 75px 0;
+  padding: 40px 0;
   max-width: 500px;
   width: 100%;
   margin: 0 auto;
@@ -109,17 +105,18 @@ header {
   background-color: rgb(231, 231, 226);
   padding: 1.5rem;
   margin: 2rem auto;
-  // box-shadow: 0 16px 38px -12px rgba(139, 139, 139, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 0;
 }
 
 .bank-detail {
   margin: 1rem 0;
+  margin-top: 0;
 }
 
 .bank-name {
   color: #4acb81;
   font-weight: bold;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   display: inline-block;
   margin-right: 1rem;
 }
@@ -133,7 +130,7 @@ header {
   font-size: 1.3rem;
   display: grid;
   grid-gap: 0.1rem;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 90px 1fr;
   margin: 0.3rem 0;
 }
 
@@ -163,12 +160,16 @@ header {
 }
 
 .prev-search {
-  background: #818181;
+  background: #575757;
   color: #fff;
   padding: 0.5rem;
   border: none;
   border-radius: 3px;
   box-shadow: 1px 1px 2px 1px #989595;
+  transition: background 0.3s ease;
+  &:hover {
+    background: #2c2c2c;
+  }
 }
 
 .prev-head {
@@ -180,13 +181,15 @@ header {
   position: relative;
 }
 
+main {
+  padding: 1rem;
+}
 .bank-query {
   overflow-y: scroll;
   height: 100px;
   background: #e7e7e2;
   position: absolute;
-  width: 90%;
-  left: 5%;
+  width: 77%;
   box-shadow : 2px 3px 12px 0px rgba(0, 0, 0, 0.56)
 }
 
@@ -221,18 +224,17 @@ header {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 0px;
-    -webkit-box-shadow: inset 0 0 20px black;
+  -webkit-box-shadow: inset 0 0 20px black;
 }
-
 
 // Responsive
 @media screen and (max-width: 420px) {
-  body {
-    padding : 1rem;
+  .rzp-logo {
+    width: 100px;
   }
-  
+
   header {
-    left: 0
+    font-size: 1.4rem;
   }
 
   .bank-detail-box {
@@ -244,7 +246,15 @@ header {
   }
 
   .input-field {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     padding-left: 0;
+  }
+
+  .bank-query {
+    width: 70%;
+  }
+
+  .drop-list {
+    font-size: 0.8rem;
   }
 }
