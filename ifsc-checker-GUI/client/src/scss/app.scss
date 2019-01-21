@@ -1,16 +1,16 @@
 // Import External Fonts
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:300,300i,400,400i,500,500i,700');
 
 @import './reset';
 @import './vars';
 
 // base 
 body {
-  font-family: 'Roboto', 'sans-serif';
+  font-family: 'Roboto Slab', 'sans-serif';
   position: relative;
   height: 100vh;
   input, button {
-    font-family: 'Roboto', 'sans-serif';
+    font-family: 'Roboto Slab', 'sans-serif';
   }
 }
 
@@ -30,12 +30,11 @@ button {
 header {
   top: 0;
   font-size: 2rem;
-  padding: 0.5rem 0;
+  padding: 1.5rem 0;
   background: $color1;
   color: #fff;
-  font-weight: 300;
+  font-weight: bold;
   width: 100%;
-  position: fixed;
 }
 
 // main 
@@ -47,7 +46,7 @@ header {
   height: 100vh;
   opacity: 0.08;
   background-blend-mode: color-burn;
-  background-image: url('/images/../images/bg.svg');
+  // background-image: url('/images/../images/bg.svg');
 }
 
 .wrapper {
@@ -62,7 +61,7 @@ header {
   display: flex;
   .btn {
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 1rem;
     display: block;
     width: 150px;
     padding: 0.5rem 0;
@@ -75,7 +74,7 @@ header {
   display: block;
   width: 100%;
   border : 2px solid $color4;
-  font-size: 1.1rem;
+  font-size: 0.87rem;
   color: #332d36;
   padding-left: 1rem;
   &:focus {
@@ -105,11 +104,12 @@ header {
 .bank-details {
   margin: 0 auto;
   border-radius: 5px;
+  border: 1px solid #cecece;
   color: #2b2b2b;
   background-color: rgb(231, 231, 226);
   padding: 1.5rem;
   margin: 2rem auto;
-  box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  // box-shadow: 0 16px 38px -12px rgba(139, 139, 139, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 }
 
 .bank-detail {
@@ -117,8 +117,8 @@ header {
 }
 
 .bank-name {
-  color: #303735;
-  font-weight: 300;
+  color: #4acb81;
+  font-weight: bold;
   font-size: 1.8rem;
   display: inline-block;
   margin-right: 1rem;
@@ -139,9 +139,11 @@ header {
 
 .info-value {
   display: inline-block;
+  font-family: 'Roboto';
   font-weight: 300;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   padding: 0.05rem 0;
+  align-self: center;
 }
 
 .info-head {
@@ -161,7 +163,7 @@ header {
 }
 
 .prev-search {
-  background: #303735;
+  background: #818181;
   color: #fff;
   padding: 0.5rem;
   border: none;
